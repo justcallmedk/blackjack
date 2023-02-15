@@ -39,7 +39,8 @@ const playerTurn = async () => {
 		}
 		return STATUS.PLAYER_WIN;
 	}
-	//command line interface
+
+	//command line interface for hit/stand
 	const rl = readline.createInterface({ input, output });
 	const answer = await rl.question('Hit(enter) or Stand(s) ?\n: ');
 	rl.close();
@@ -104,7 +105,7 @@ const setup = async () => {
 		return false;
 	}
 
-	//command line interface
+	//command line interface for wager
 	const rl = readline.createInterface({ input, output });
 	const answer = await rl.question('How much tendies (' + tendies + ')?\n: ');
 	rl.close();
@@ -148,12 +149,12 @@ const run = async () => {
 		else if(status === STATUS.PUSH) {
 			myPlayer.deposit(currentBet);
 		}
-		else if(status ===STATUS.PLAYER_BJ) {
+		else if(status ===STATUS.PLAYER_BJ) { //bj pays 2.5x
 			myPlayer.deposit(currentBet * 2.5);
 		}
 
 		console.info(status);
-		if(!await setup()) {
+		if(!await setup()) { //setup will return false on broke
 			break;
 		}
 		console.info('\n=== NEW ROUND ===\n');
